@@ -1,24 +1,33 @@
 <div class="container mt-5 mb-5">
     <h1>Contactos</h1>
-    <form class="col-lg-8">
+    <form class="col-lg-8" [formGroup]="contactForm">
         <div class="row">
           <div class="col-lg-6 mt-2 mb-2">
-            <input type="text" class="form-control" placeholder="Ingrese su nombre" [(ngModel)]="nombre" required>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese su nombre" required formControlName="name" >
+            <div *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.errors?.['required']"> Este campo es obligatorio</div>
           </div>
           <div class="col-lg-6 mt-2 mb-2">
-            <input type="text" class="form-control" placeholder="Ingrese su apellido" [(ngModel)]="apellido" required>
+            <input type="text" class="form-control" placeholder="Ingrese su apellido" formControlName="apellido" required>
+            <div *ngIf="contactForm.get('apellido')?.touched && contactForm.get('apellido')?.errors?.['required']"> Este campo es obligatorio</div>
           </div>
           <div class="col-lg-12 mt-2 mb-2">
-            <input type="text" class="form-control" placeholder="Ingrese su Email" [(ngModel)]="email" required>
+            <input type="text" class="form-control" placeholder="Ingrese su Email" formControlName="email" required>
+            <div *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']"> Este campo es obligatorio</div>
           </div>
           <div class="col-lg-12 mt-2 mb-2">
-            <input type="text" class="form-control" placeholder="Ingrese su teléfono" [(ngModel)]="telefono" required>
+            <input type="text" class="form-control" placeholder="Ingrese su teléfono" formControlName="telefono" required>
+            <div *ngIf="contactForm.get('telefono')?.touched && contactForm.get('telefono')?.errors?.['required']"> Este campo es obligatorio</div>
           </div>
           <div>
-            <textarea class="form-control" name="" id="" cols="30" rows="10" placeholder="Ingrese su mensaje"></textarea>
+            <textarea class="form-control" name="" id="" cols="30" rows="10" placeholder="Ingrese su mensaje" formControlName="textarea" required></textarea>
+            <div *ngIf="contactForm.get('textarea')?.touched && contactForm.get('textarea')?.errors?.['required']"> Este campo es obligatorio</div>
           </div>
         </div>
         <div class="col-lg-12">                                                                                                 
-                <button class="btn btn-md btn-dark" (ngSubmit)="enviarFormulario()">Enviar</button>
+                <button class="btn btn-md btn-dark" type="submit" (ngSubmit)="onSubmit()">Enviar</button>
+                <div *ngIf="showSuccessAlert" class="alert alert-success">El formulario se ha enviado correctamente</div>
+                  <div *ngIf="showErrorAlert" class="alert alert-danger">Por favor, llena todos los campos obligatorios</div>
+          
             </div>
+            
       </form>

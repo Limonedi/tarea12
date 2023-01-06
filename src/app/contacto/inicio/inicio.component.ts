@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-inicio',
@@ -6,29 +7,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
-  nombre;
-  apellido;
-  email;
-  telefono;
-  formularioEnviado = false;
-  constructor() {
-    this.nombre = '';
-    this.apellido = '';
-    this.email = '';
-    this.telefono = '';
-   }
+ contactForm!: FormGroup;
+ showSuccessAlert = false;
+  showErrorAlert = false;
+ 
+
+  constructor(private readonly fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.contactForm = this.initForm();
   }
-  enviarFormulario(): void {
-    // Valida si todos los campos del formulario han sido rellenados
-    if (this.nombre && this.apellido && this.email && this.telefono) {
-      // Si todos los campos han sido rellenados, envia el formulario
-      this.formularioEnviado = true;
-      // Aquí debes poner el código necesario para enviar el formulario, por ejemplo, hacer una petición HTTP
+ 
+  
+  initForm(): FormGroup {
+    return this.fb.group({
+      name: ['', [Validators.required]],
+      apellido: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      textarea: ['', [Validators.required]]
+    });
+  }
+
+  onSubmit() {
+    if (this.contactForm.valid) {
+      this.showSuccessAlert = true;
+      this.showErrorAlert = false;
     } else {
-      // Si algún campo está vacío, muestra un mensaje de error
-      alert('Todos los campos son obligatorios');
+      this.showSuccessAlert = false;
+      this.showErrorAlert = true;
     }
   }
 }
+

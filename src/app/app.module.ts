@@ -5,10 +5,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactoModule } from './contacto/contacto.module';
+import { DirectivaDirective } from './directiva.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DirectivaDirective
   ],
   imports: [
     BrowserModule,
